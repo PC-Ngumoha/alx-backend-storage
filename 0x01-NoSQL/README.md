@@ -1,5 +1,17 @@
 # NoSQL (MongoDB)
 
+## Useful Points:
+
+- _ACID_ stands for _Atomicity Consistency Isolation Durability_ and this trait is not always guaranteed in NoSQL databases.
+
+- Categories of NoSQL databases include the following:
+	- Key-Value data stores.
+	- Document stores.
+	- Wide-column stores.
+	- Graph stores.
+
+- _BSON_ stands for _Binary Javascript Object Notation_ and it is essentially a binary-encoded serialization of JSON objects. They are the mechanisms that enable NoSQL databases store their data behind the scenes. 
+
 ## Useful Links:
 
 - [NoSQL Databases Explained](https://riak.com/resources/nosql-databases/)

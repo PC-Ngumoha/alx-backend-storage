@@ -14,3 +14,4 @@ The project was focused on impacting knowledge of some of the more advanced feat
 
 - [Stored Procedures](https://www.w3resource.com/mysql/mysql-procedure.php)
 - [Indexing](https://www.liquidweb.com/kb/mysql-optimization-how-to-leverage-mysql-database-indexing/)
+- [MySQL 5.7 Docs on Functions](https://dev.mysql.com/doc/refman/5.7/en/functions.html)

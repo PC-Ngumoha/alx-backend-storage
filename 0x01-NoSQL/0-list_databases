@@ -1,0 +1,2 @@
+// A simple mongodb script to list all the dbs in localhost
+show dbs

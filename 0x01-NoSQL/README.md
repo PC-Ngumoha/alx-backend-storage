@@ -27,3 +27,8 @@
 - [Python and MongoDB: Connecting to NoSQL Databases](https://realpython.com/introduction-to-mongodb-and-python/)
 
 - [MongoDB Documentation](https://www.mongodb.com/docs/manual/reference/method/)
+
+- [PyMongo Documentation](https://pymongo.readthedocs.io/en/stable/)
+
+- [Basic CRUD utitlities with PyMongo MongoClient](https://pymongo.readthedocs.io/en/stable/api/pymongo/mongo_client.html)
+

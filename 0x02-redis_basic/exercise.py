@@ -2,9 +2,25 @@
 """
 Creates the 'Cache' class
 """
-from typing import Union, Callable, Any
+from functools import wraps
+from typing import Union, Callable, Any, Optional
 import redis
 import uuid
+
+
+def count_calls(method: Callable) -> Callable:
+    """
+    count_calls decorator
+    """
+    @wraps(method)
+    def wrapper(self, *args: Any, **kwargs: Any) -> Any:
+        """
+        Direct wrapper
+        """
+        r = redis.Redis()
+        r.incr(method.__qualname__)  # increment the value at that point
+        return method(self, *args, **kwargs)
+    return wrapper
 
 
 class Cache:
@@ -20,6 +36,7 @@ class Cache:
         self._redis = redis.Redis()
         self._redis.flushdb()
 
+    @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """
         store(data)
@@ -34,7 +51,7 @@ class Cache:
         self._redis.set(key, data)
         return key
 
-    def get(self, key: str, fn: Union[Callable, None] = None) -> Any:
+    def get(self, key: str, fn: Optional[Callable] = None) -> Any:
         """
         get(key, fn)
 

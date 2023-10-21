@@ -23,11 +23,11 @@ def cache_and_track(method: Callable) -> Callable:
         """
         url = args[0]
         cache = redis.Redis()
-        page = cache.get('content:{}'.format(url))
+        page = cache.get('{}'.format(url))
         if page is None:
             page = method(*args, **kwargs)
-            cache.setex('content:{}'.format(url), 10, page)
-        cache.incr('count:{}'.format(url))
+            cache.setex('{}'.format(url), 10, page)
+            cache.incr('count:{}'.format(url))
         return page
     return wrapper
 

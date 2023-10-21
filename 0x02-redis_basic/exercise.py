@@ -15,10 +15,26 @@ def count_calls(method: Callable) -> Callable:
     @wraps(method)
     def wrapper(self, *args: Any, **kwargs: Any) -> Any:
         """
-        Direct wrapper
+        Wrapper function
         """
-        self._redis.incr(method.__qualname__)  # increment the value at that point
+        self._redis.incr(method.__qualname__)
         return method(self, *args, **kwargs)
+    return wrapper
+
+
+def call_history(method: Callable) -> Callable:
+    """
+    call_history decorator
+    """
+    @wraps(method)
+    def wrapper(self, *args: Any, **kwargs: Any) -> Any:
+        """
+        Wrapper function
+        """
+        output = method(self, *args, *kwargs)
+        self._redis.rpush('{}:inputs'.format(method.__qualname__), str(args))
+        self._redis.rpush('{}:outputs'.format(method.__qualname__), output)
+        return output
     return wrapper
 
 
@@ -36,6 +52,7 @@ class Cache:
         self._redis.flushdb()
 
     @count_calls
+    @call_history
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """
         store(data)

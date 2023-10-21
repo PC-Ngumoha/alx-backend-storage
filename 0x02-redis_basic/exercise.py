@@ -38,6 +38,30 @@ def call_history(method: Callable) -> Callable:
     return wrapper
 
 
+def replay(method: Callable) -> None:
+    """
+    replay(method)
+
+    Args:
+      - method (callable): method whose call history we want to replay.
+
+    Returns:
+      - None
+    """
+    r = redis.Redis()
+    inputs = [data.decode() for data in
+              r.lrange('{}:inputs'.format(method.__qualname__), 0, -1)]
+    outputs = [data.decode() for data in
+               r.lrange('{}:outputs'.format(method.__qualname__), 0, -1)]
+    history_length = r.llen('{}:inputs'.format(method.__qualname__))
+    print('{} was called {} times:'.format(
+        method.__qualname__, history_length))
+    for row in zip(inputs, outputs):
+        print('{}(*{}) -> {}'.format(
+            method.__qualname__, row[0], row[1]
+        ))
+
+
 class Cache:
     """
     Cache class implementation

@@ -17,8 +17,7 @@ def count_calls(method: Callable) -> Callable:
         """
         Direct wrapper
         """
-        r = redis.Redis()
-        r.incr(method.__qualname__)  # increment the value at that point
+        self._redis.incr(method.__qualname__)  # increment the value at that point
         return method(self, *args, **kwargs)
     return wrapper
 
